@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="boldSpan">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="italicSpan">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="boldItalicSpan">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <style name="normalSpan">
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>
