@@ -3,46 +3,44 @@ package com.text.formatter
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
-import android.text.TextPaint
+import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.util.Log
 import androidx.appcompat.widget.AppCompatEditText
+
 
 class FormattedEditText : AppCompatEditText {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context) : super(context)
 
-    var hasSelection = false
     var start = 0
     var end = 0
 
     override fun onSelectionChanged(selStart: Int, selEnd: Int) {
         super.onSelectionChanged(selStart, selEnd)
         Log.e("SELECTION", "$selStart:$selEnd")
-        if (selStart == 0 && selEnd == 0) {
-        } else if (selEnd != selStart) {
-            hasSelection = true
-            start = selStart
-            end = selEnd
-        } else {
-            hasSelection = false
-            start = 0
-            end = 0
-        }
+        start = selStart
+        end = selEnd
     }
 
-    fun setStyleForSelection(isBold: Boolean, isItalic: Boolean) {
+    private val boldSpan = StyleSpan(Typeface.BOLD)
+    private val italicSpan = StyleSpan(Typeface.ITALIC)
+    private val underlineSpan = UnderlineSpan()
+    private val strikeSpan = StrikethroughSpan()
+
+    fun setStyleForSelection(isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, isStrike: Boolean) {
         Log.e("STYLE -> $selectionStart:$selectionEnd", "BOLD:$isBold, Italic:$isItalic")
-        if (isBold && isItalic) text?.setSpan(StyleSpan(Typeface.BOLD_ITALIC), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-        else {
-            when {
-                isBold -> text?.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-                isItalic -> text?.setSpan(StyleSpan(Typeface.ITALIC), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-                else -> text?.setSpan(StyleSpan(Typeface.NORMAL), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-            }
+
+        if (start != end) {
+            if (isBold) text?.setSpan(boldSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(boldSpan)
+            if (isItalic) text?.setSpan(italicSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(italicSpan)
+            if (isUnderline) text?.setSpan(underlineSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(underlineSpan)
+            if (isStrike) text?.setSpan(strikeSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(strikeSpan)
         }
+
         invalidate()
     }
 }

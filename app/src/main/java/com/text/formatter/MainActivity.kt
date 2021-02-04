@@ -15,18 +15,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.formattedEditText.setText("Hello World!", TextView.BufferType.SPANNABLE)
+        binding.formattedEditText.setText("Hello World", TextView.BufferType.SPANNABLE)
 
         binding.bold.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (binding.formattedEditText.hasSelection) {
-                binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked)
-            }
+            binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked, binding.underline.isChecked, binding.strike.isChecked)
         }
 
         binding.italic.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (binding.formattedEditText.hasSelection) {
-                binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked)
-            }
+            binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked, binding.underline.isChecked, binding.strike.isChecked)
+        }
+
+        binding.underline.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked, binding.underline.isChecked, binding.strike.isChecked)
+        }
+
+        binding.strike.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked, binding.underline.isChecked, binding.strike.isChecked)
         }
     }
 }

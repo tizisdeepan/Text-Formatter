@@ -12,19 +12,46 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/bold"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/italic"
+                <CheckBox
+                    android:id="@+id/bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B" />
+
+                <CheckBox
+                    android:id="@+id/italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I" />
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/underline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="U" />
+
+                <CheckBox
+                    android:id="@+id/strike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -35,8 +62,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_toStartOf="@+id/styleList"
-            android:gravity="start"
-            android:text="Hello World!" />
+            android:gravity="start" />
 
     </RelativeLayout>
 
