@@ -18,16 +18,28 @@ class FormattedEditText : AppCompatEditText {
 
     var start = 0
     var end = 0
+    var listener: FormattedTextListener? = null
 
     override fun onSelectionChanged(selStart: Int, selEnd: Int) {
         super.onSelectionChanged(selStart, selEnd)
         Log.e("SELECTION", "$selStart:$selEnd")
         start = selStart
         end = selEnd
+        if (start > 0) {
+            getCurrentSpans()
+        }
     }
 
-    private val boldSpan = StyleSpan(Typeface.BOLD)
-    private val italicSpan = StyleSpan(Typeface.ITALIC)
+    private fun getCurrentSpans() {
+        val spans = text?.getSpans(start - 1, end, Any::class.java)
+        spans?.forEach {
+            Log.e("SPAN", it::class.java.canonicalName)
+        }
+        listener?.getCurrentSpans(spans?.any { it is BoldSpan } ?: false, spans?.any { it is ItalicSpan } ?: false, spans?.any { it is UnderlineSpan } ?: false, spans?.any { it is StrikethroughSpan } ?: false)
+    }
+
+    private val boldSpan = BoldSpan()
+    private val italicSpan = ItalicSpan()
     private val underlineSpan = UnderlineSpan()
     private val strikeSpan = StrikethroughSpan()
 
@@ -35,12 +47,18 @@ class FormattedEditText : AppCompatEditText {
         Log.e("STYLE -> $selectionStart:$selectionEnd", "BOLD:$isBold, Italic:$isItalic")
 
         if (start != end) {
-            if (isBold) text?.setSpan(boldSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(boldSpan)
-            if (isItalic) text?.setSpan(italicSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(italicSpan)
-            if (isUnderline) text?.setSpan(underlineSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(underlineSpan)
-            if (isStrike) text?.setSpan(strikeSpan, start, end, Spannable.SPAN_COMPOSING) else text?.removeSpan(strikeSpan)
+            if (isBold) text?.setSpan(boldSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(boldSpan)
+            if (isItalic) text?.setSpan(italicSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(italicSpan)
+            if (isUnderline) text?.setSpan(underlineSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(underlineSpan)
+            if (isStrike) text?.setSpan(strikeSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(strikeSpan)
+            invalidate()
         }
+    }
 
-        invalidate()
+    private fun removeSpan(span: Any) {
+        val spans = text?.getSpans(start, end, span::class.java)
+        spans?.forEach {
+            text?.removeSpan(it)
+        }
     }
 }

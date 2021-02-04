@@ -17,6 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.formattedEditText.setText("Hello World", TextView.BufferType.SPANNABLE)
 
+        binding.formattedEditText.listener = object : FormattedTextListener {
+            override fun getCurrentSpans(isBold: Boolean, isItalic: Boolean, underlined: Boolean, striked: Boolean) {
+                binding.bold.isChecked = isBold
+                binding.italic.isChecked = isItalic
+                binding.underline.isChecked = underlined
+                binding.strike.isChecked = striked
+            }
+        }
+
         binding.bold.setOnCheckedChangeListener { buttonView, isChecked ->
             binding.formattedEditText.setStyleForSelection(binding.bold.isChecked, binding.italic.isChecked, binding.underline.isChecked, binding.strike.isChecked)
         }
