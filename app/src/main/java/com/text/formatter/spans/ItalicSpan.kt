@@ -1,4 +1,4 @@
-package com.text.formatter
+package com.text.formatter.spans
 
 import android.graphics.Typeface
 import android.text.style.StyleSpan

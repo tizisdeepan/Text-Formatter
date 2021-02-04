@@ -1,14 +1,13 @@
 package com.text.formatter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.text.Spannable
+import android.text.style.BulletSpan
 import android.text.style.StrikethroughSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.util.Log
 import androidx.appcompat.widget.AppCompatEditText
+import com.text.formatter.spans.*
 
 
 class FormattedEditText : AppCompatEditText {
@@ -35,15 +34,17 @@ class FormattedEditText : AppCompatEditText {
         spans?.forEach {
             Log.e("SPAN", it::class.java.canonicalName)
         }
-        listener?.getCurrentSpans(spans?.any { it is BoldSpan } ?: false, spans?.any { it is ItalicSpan } ?: false, spans?.any { it is UnderlineSpan } ?: false, spans?.any { it is StrikethroughSpan } ?: false)
+        listener?.getCurrentSpans(spans?.any { it is BoldSpan } ?: false, spans?.any { it is ItalicSpan } ?: false, spans?.any { it is UnderlineSpan } ?: false, spans?.any { it is StrikethroughSpan } ?: false, spans?.any { it is BulletSpan } ?: false, spans?.any { it is NumberSpan } ?: false)
     }
 
     private val boldSpan = BoldSpan()
     private val italicSpan = ItalicSpan()
     private val underlineSpan = UnderlineSpan()
     private val strikeSpan = StrikethroughSpan()
+    private val bulletSpan = CustomBulletSpan()
+    private val numberSpan = NumberSpan()
 
-    fun setStyleForSelection(isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, isStrike: Boolean) {
+    fun setStyleForSelection(isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, isStrike: Boolean, isBullet: Boolean, isNumber: Boolean) {
         Log.e("STYLE -> $selectionStart:$selectionEnd", "BOLD:$isBold, Italic:$isItalic")
 
         if (start != end) {
@@ -51,6 +52,8 @@ class FormattedEditText : AppCompatEditText {
             if (isItalic) text?.setSpan(italicSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(italicSpan)
             if (isUnderline) text?.setSpan(underlineSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(underlineSpan)
             if (isStrike) text?.setSpan(strikeSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(strikeSpan)
+            if (isBullet) text?.setSpan(bulletSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(bulletSpan)
+            if (isNumber) text?.setSpan(numberSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(numberSpan)
             invalidate()
         }
     }

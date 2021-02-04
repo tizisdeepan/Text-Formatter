@@ -10,13 +10,11 @@
             android:id="@+id/styleList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp"
+            android:layout_above="@+id/formattedEditText"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -32,13 +30,6 @@
                     android:layout_height="wrap_content"
                     android:text="I" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
                 <CheckBox
                     android:id="@+id/underline"
                     android:layout_width="wrap_content"
@@ -51,6 +42,18 @@
                     android:layout_height="wrap_content"
                     android:text="S" />
 
+                <CheckBox
+                    android:id="@+id/bullet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B" />
+
+                <CheckBox
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -60,8 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/styleList"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
             android:gravity="start" />
 
     </RelativeLayout>
