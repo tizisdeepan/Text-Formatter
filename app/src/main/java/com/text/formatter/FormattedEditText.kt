@@ -73,6 +73,7 @@ class FormattedEditText : AppCompatEditText {
             text?.addSpan(start, end, NumberSpan::class.java)
     }
 
+
     override fun onSelectionChanged(selStart: Int, selEnd: Int) {
         super.onSelectionChanged(selStart, selEnd)
         Log.e("SELECTION", "$selStart:$selEnd")
