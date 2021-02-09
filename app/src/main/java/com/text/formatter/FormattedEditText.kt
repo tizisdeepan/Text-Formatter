@@ -47,15 +47,15 @@ class FormattedEditText : AppCompatEditText {
     fun setStyleForSelection(isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, isStrike: Boolean, isBullet: Boolean, isNumber: Boolean) {
         Log.e("STYLE -> $selectionStart:$selectionEnd", "BOLD:$isBold, Italic:$isItalic")
 
-        if (start != end) {
-            if (isBold) text?.setSpan(boldSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(boldSpan)
-            if (isItalic) text?.setSpan(italicSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(italicSpan)
-            if (isUnderline) text?.setSpan(underlineSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(underlineSpan)
-            if (isStrike) text?.setSpan(strikeSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(strikeSpan)
-            if (isBullet) text?.setSpan(bulletSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(bulletSpan)
-            if (isNumber) text?.setSpan(numberSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(numberSpan)
-            invalidate()
-        }
+        //        if (start != end) {
+        if (isBold) text?.setSpan(boldSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(boldSpan)
+        if (isItalic) text?.setSpan(italicSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(italicSpan)
+        if (isUnderline) text?.setSpan(underlineSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(underlineSpan)
+        if (isStrike) text?.setSpan(strikeSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(strikeSpan)
+        if (isBullet) text?.setSpan(bulletSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(bulletSpan)
+        if (isNumber) text?.setSpan(numberSpan, start, end + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE) else removeSpan(numberSpan)
+        invalidate()
+        //        }
     }
 
     private fun removeSpan(span: Any) {
